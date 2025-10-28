@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="css/style.css">
    <link rel="stylesheet" href="css/mobile.css">
    <title>Kitchen Oracle</title>
 </head>
+
 <body>
-   
+
    <div class="container">
       <header>
          <div id="main-nav">
             <a href="#" id="logo">Kitchen Oracle</a>
             <nav>
                <ul>
-                  <li class="nav-list"><a href="#">Search</a></li>
-                  <li class="nav-list"><a href="#">Recipes</a></li>
-                  <li class="nav-list"><a href="#">Favorites</a></li>
+                  <a href="#" class="nav-list">
+                     <li>Search</li>
+                  </a>
+                  <a href="#" class="nav-list">
+                     <li>Recipes</li>
+                  </a>
+                  <a href="#" class="nav-list">
+                     <li>Favorites</li>
+                  </a>
                </ul>
             </nav>
          </div>
          <div class="hero">
-            <h1>Kitchen Oracle</h1>
+            <h1>Kitchen <span class="highlight">Oracle</span></h1>
             <p>Recipe Finder</p>
          </div>
       </header>
@@ -31,17 +44,25 @@
          <section class="search-section">
             <form action="#">
                <input type="text" name="search" id="search-box" placeholder="Search for recipe...">
-               <button type="submit" id="search-btn">Search</button>
+               <!-- <button type="submit" id="search-btn">Search</button> -->
             </form>
          </section>
-         <section class="recipe-list">
+         <div class="recipe-content">
+            <section class="recipe-list">
+               <!-- RECIPE API WILL GO HERE -->
+            </section>
+            <aside class="ads">
+               <h2>Your Ads here.</h2>
+            </aside>
+         </div>
 
-         </section>
-         <aside>
-            <h2>Your Ads here.</h2>
-         </aside>
       </main>
+
+      <footer>
+         <p>Made with ❤️ | brayH &copy; 2025</p>
+      </footer>
    </div>
 
 </body>
+
 </html>

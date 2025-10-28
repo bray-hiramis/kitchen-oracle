@@ -1,0 +1,41 @@
+$font-stack: "Poppins", sans-serif;
+$primary-color: #BE2D32;
+$accent-color: #E7AC7E;
+$font-color: #222;
+$font-color-secondary: #f2f2f2;
+
+$fs-lg: 4rem;
+$fs-md: 2.8rem;
+$fs-sm: 1.8rem;
+
+$pd-lg: 40px;
+$pd-md: 30px;
+$pd-sm: 20px;
+$pd-xs: 10px;
+
+$mg-lg: 40px;
+$mg-md: 30px;
+$mg-sm: 20px;
+$mg-xs: 10px;
+
+$br-lg: 20px;
+$br-md: 10px;
+
+.container {
+   max-width: 1280px;
+   margin: 0 auto;
+   padding: $pd-sm 0;
+}
+
+.highlight {
+   color: $font-color-secondary;
+   text-decoration: underline;
+}
+
+li {
+   list-style: none;
+}
+
+a {
+   text-decoration: none;
+}
