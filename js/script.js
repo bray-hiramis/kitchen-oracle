@@ -17,7 +17,7 @@ async function fetchRecipe(e) {
       const response = await fetch(recipeAPI);
 
       if (!response.ok) {
-         throw new Error("HTTP error! Status: ${response.status}. Can't fetch the API.");
+         throw new Error(`HTTP error! Status: ${response.status}. Can't fetch the API.`);
       }
 
       const data = await response.json();
