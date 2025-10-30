@@ -24,7 +24,7 @@ $br-md: 10px;
 .container {
    max-width: 1280px;
    margin: 0 auto;
-   padding: $pd-sm 0;
+   padding: 30px 10px;
 }
 
 .highlight {
@@ -41,7 +41,8 @@ a {
 }
 
 img {
-   max-width: min(200px, 20%);
-   height: auto;
-   object-fit: fill;
+   display: block;
+   max-width: 100%;
+   height: 100%;
+   object-fit: cover;
 }

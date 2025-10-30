@@ -12,9 +12,7 @@ html {
 }
 
 header {
-   background: url("https://images.pexels.com/photos/4199098/pexels-photo-4199098.jpeg") no-repeat center / cover;
-   position: relative;
-
+   
    // navigation
    #main-nav {
       display: flex;
@@ -23,21 +21,22 @@ header {
       align-items: center;
       background-color: util.$primary-color;
       padding: util.$pd-xs;
-
+      border-radius: util.$br-md;
+      
       #logo,
       .nav-list {
          color: util.$font-color-secondary;
       }
-
+      
       nav ul {
          display: flex;
          flex-wrap: wrap;
       }
-
+      
       .nav-list {
          padding: util.$pd-sm;
          transition: .3s;
-
+         
          &:hover {
             background: util.$accent-color;
             color: util.$font-color;
@@ -47,12 +46,16 @@ header {
    
    // hero section
    .hero {
+      background: url("https://images.pexels.com/photos/4199098/pexels-photo-4199098.jpeg") no-repeat center / cover;
       height: 60vh;
       position: relative;
+      top: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      margin-top: util.$mg-md;
+      border-radius: util.$br-md;
 
       &:before {
          content: "";
@@ -63,6 +66,7 @@ header {
          height: 100%;
          background-color: util.$accent-color;
          opacity: .8;
+         border-radius: util.$br-md;
       }
 
       h1,
@@ -88,6 +92,7 @@ main {
       display: flex;
       justify-content: center;
       align-items: center;
+      gap: 20px;
       padding: util.$pd-md;
 
       #search-box {
@@ -102,18 +107,64 @@ main {
             outline: 2px solid util.$primary-color;
          }
       }
+
+      #search-btn {
+         cursor: pointer;
+         font-size: util.$fs-sm;
+         border-radius: util.$br-md;
+         padding: util.$pd-xs;
+         border: none;
+         background: util.$accent-color;
+      }
    }
 
    // Recipe list section
    .recipe-content {
-      height: 80vh;
+      min-height: 80vh;
       display: grid;
       grid-template-columns: 4fr 1fr;
-      grid-template-rows: 1fr;
       gap: 10px;
 
       .recipe-list {
-         background-color: util.$accent-color;
+
+         .recipe-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 400px;
+            gap: 20px;
+
+
+            .recipe-card {
+               display: grid;
+               place-items: end;
+               border: 1px solid util.$primary-color;
+               border-radius: util.$br-lg;
+               box-shadow: 0 4px 4px #777;
+               overflow: hidden;
+               transition: all .2s ease;
+
+               &:hover{
+                  cursor: pointer;
+                  transform: scale(1.02);
+               }
+
+               .recipe-img,
+               .recipe-name {
+                  grid-column: 1 / 2;
+                  grid-row: 1 / 2;
+               }
+
+               .recipe-name {
+                  height: max-content;
+                  width: 100%;
+                  padding: util.$pd-md;
+                  background-color: util.$accent-color;
+                  opacity: .9;
+                  font-weight: bold;
+                  text-align: center;
+               }
+            }
+         }
       }
 
       .ads {
@@ -126,6 +177,7 @@ main {
 }
 
 footer {
+   height: 100%;
    text-align: center;
    padding: util.$pd-lg;
 }

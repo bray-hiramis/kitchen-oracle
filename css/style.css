@@ -1,7 +1,7 @@
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 30px 10px;
 }
 
 .highlight {
@@ -18,9 +18,10 @@ a {
 }
 
 img {
-  max-width: min(200px, 20%);
-  height: auto;
-  object-fit: fill;
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 * {
@@ -34,10 +35,6 @@ html {
   color: #222;
 }
 
-header {
-  background: url("https://images.pexels.com/photos/4199098/pexels-photo-4199098.jpeg") no-repeat center/cover;
-  position: relative;
-}
 header #main-nav {
   display: flex;
   flex-wrap: wrap;
@@ -45,6 +42,7 @@ header #main-nav {
   align-items: center;
   background-color: #BE2D32;
   padding: 10px;
+  border-radius: 10px;
 }
 header #main-nav #logo,
 header #main-nav .nav-list {
@@ -63,12 +61,16 @@ header #main-nav .nav-list:hover {
   color: #222;
 }
 header .hero {
+  background: url("https://images.pexels.com/photos/4199098/pexels-photo-4199098.jpeg") no-repeat center/cover;
   height: 60vh;
   position: relative;
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
+  border-radius: 10px;
 }
 header .hero:before {
   content: "";
@@ -79,6 +81,7 @@ header .hero:before {
   height: 100%;
   background-color: #E7AC7E;
   opacity: 0.8;
+  border-radius: 10px;
 }
 header .hero h1,
 header .hero p {
@@ -96,6 +99,7 @@ main .search-section form {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
   padding: 30px;
 }
 main .search-section form #search-box {
@@ -109,15 +113,52 @@ main .search-section form #search-box:focus {
   border: none;
   outline: 2px solid #BE2D32;
 }
+main .search-section form #search-btn {
+  cursor: pointer;
+  font-size: 1.8rem;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  background: #E7AC7E;
+}
 main .recipe-content {
-  height: 80vh;
+  min-height: 80vh;
   display: grid;
   grid-template-columns: 4fr 1fr;
-  grid-template-rows: 1fr;
   gap: 10px;
 }
-main .recipe-content .recipe-list {
+main .recipe-content .recipe-list .recipe-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 400px;
+  gap: 20px;
+}
+main .recipe-content .recipe-list .recipe-container .recipe-card {
+  display: grid;
+  place-items: end;
+  border: 1px solid #BE2D32;
+  border-radius: 20px;
+  box-shadow: 0 4px 4px #777;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+main .recipe-content .recipe-list .recipe-container .recipe-card:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+main .recipe-content .recipe-list .recipe-container .recipe-card .recipe-img,
+main .recipe-content .recipe-list .recipe-container .recipe-card .recipe-name {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+main .recipe-content .recipe-list .recipe-container .recipe-card .recipe-name {
+  height: max-content;
+  width: 100%;
+  padding: 30px;
   background-color: #E7AC7E;
+  opacity: 0.9;
+  font-weight: bold;
+  text-align: center;
 }
 main .recipe-content .ads {
   display: flex;
@@ -127,6 +168,7 @@ main .recipe-content .ads {
 }
 
 footer {
+  height: 100%;
   text-align: center;
   padding: 40px;
 }
