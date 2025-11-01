@@ -144,17 +144,17 @@ main {
                transition: all .2s ease;
 
                &:hover{
-                  cursor: pointer;
                   transform: scale(1.02);
                }
-
+               
                .recipe-img,
                .recipe-name {
                   grid-column: 1 / 2;
                   grid-row: 1 / 2;
                }
-
+               
                .recipe-name {
+                  cursor: pointer;
                   height: max-content;
                   width: 100%;
                   padding: util.$pd-md;
@@ -162,6 +162,45 @@ main {
                   opacity: .9;
                   font-weight: bold;
                   text-align: center;
+               }
+            }
+         }
+      }
+
+      .modal-container {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0, 0, 0, 0.7);
+         display: none;
+         justify-content: center;
+         align-items: center;
+         z-index: 1000;
+
+         .modal-content {
+            position: relative;
+            height: auto;
+            max-width: 700px;
+            background-color: util.$font-color-secondary;
+            color: util.$font-color;
+            padding: util.$pd-md;
+            border-radius: util.$br-md;
+            overflow: hidden;
+
+            .close-modal-btn {
+               cursor: pointer;
+               border: none;
+               position: absolute;
+               top: 0;
+               right: 0;
+               margin: util.$mg-xs;
+               background-color: transparent;
+
+               & i {
+                  color: red;
+                  font-size: 1.2rem;
                }
             }
          }

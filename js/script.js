@@ -1,6 +1,7 @@
 const recipeContainer = document.querySelector(".recipe-container");
 const searchBtn = document.getElementById("search-btn");
 
+// Fetching API
 async function fetchRecipe(e) {
    e.preventDefault();
    try {
@@ -34,7 +35,7 @@ async function fetchRecipe(e) {
             imgRecipe.alt = `Image of ${meal.strMealThumb}`;
             imgRecipe.onerror = () => (imgRecipe.src = "https://placehold.co/100x100/A3A3A3/FFFFFF?text=No+Image"); // Fallback
 
-            const recipeName = document.createElement("p");
+            const recipeName = document.createElement("a");
             recipeName.classList.add("recipe-name");
             recipeName.textContent = meal.strMeal;
 
@@ -52,5 +53,26 @@ async function fetchRecipe(e) {
       console.error(error);
    }
 }
-
+// Calling fetchRecipe to display in the recipe-container
 searchBtn.addEventListener("click", fetchRecipe);
+
+// Modal
+const modalOverlay = document.querySelector('.modal-container');
+const closeModal = document.querySelector('.close-modal-btn');
+
+recipeContainer.addEventListener('click', function(e) {
+   if (e.target.tagName = 'A' && e.target.classList.contains('recipe-name')) {
+      e.preventDefault();
+      modalOverlay.style.display = 'flex';
+   }
+})
+
+closeModal.addEventListener('click', function() {
+   modalOverlay.style.display = 'none';
+})
+
+modalOverlay.addEventListener('click', function(e) {
+   if (e.target === modalOverlay) {
+      modalOverlay.style.display = 'none';
+   }
+})
