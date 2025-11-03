@@ -1,62 +1,88 @@
 const recipeContainer = document.querySelector(".recipe-container");
 const searchBtn = document.getElementById("search-btn");
+const mainAPI = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
-// Fetching API
-async function fetchRecipe(e) {
-   e.preventDefault();
+// function to display the API content to the DOM
+function displayMeals(mealsArray) {
+
+   recipeContainer.innerHTML = '';
+
+   if (mealsArray && mealsArray.length > 0) {
+      mealsArray.forEach(meal => {
+         const li = document.createElement("li");
+         li.classList.add("recipe-card");
+
+         const imgRecipe = document.createElement("img");
+         imgRecipe.classList.add("recipe-img");
+         imgRecipe.src = meal.strMealThumb;
+         imgRecipe.alt = `Image of ${meal.strMealThumb}`;
+         imgRecipe.onerror = () => (imgRecipe.src = "https://placehold.co/100x100/A3A3A3/FFFFFF?text=No+Image"); // Fallback
+
+         const recipeID = document.createElement('p');
+         recipeID.classList.add('recipe-id');
+         recipeID.textContent = meal.idMeal;
+         recipeID.style.display = 'none';
+
+         const recipeName = document.createElement("a");
+         recipeName.classList.add("recipe-name");
+         recipeName.textContent = meal.strMeal;
+
+         li.appendChild(imgRecipe);
+         li.appendChild(recipeID);
+         li.appendChild(recipeName);
+         recipeContainer.appendChild(li);
+      });
+   } else {
+      const errorMessage = document.createElement('p');
+      errorMessage.textContent = 'No recipes found for the search term.'
+      recipeContainer.appendChild(errorMessage);
+   }
+
+}
+
+// async function to display the meals
+async function fetchAndDisplay(api) {
    try {
-      const searchBox = document.getElementById("search-box").value.trim().toLowerCase();
-
-      recipeContainer.innerHTML = '';
-
-      if (searchBox === '') {
-         recipeContainer.textContent = 'Please enter a meal name to search.';
-         return;
-      }
-
-      const recipeAPI = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchBox}`;
-      const response = await fetch(recipeAPI);
+      const response = await fetch(api);
 
       if (!response.ok) {
-         throw new Error(`HTTP error! Status: ${response.status}. Can't fetch the API.`);
+         throw new Error(`HTTP error! Status: ${response.status}. Could not fetch data.`);
       }
-
       const data = await response.json();
-      const mealsArray = data.meals;
+      
+      displayMeals(data.meals);
 
-      if (mealsArray && mealsArray.length > 0) {
-         mealsArray.forEach(meal => {
-            const li = document.createElement("li");
-            li.classList.add("recipe-card");
-
-            const imgRecipe = document.createElement("img");
-            imgRecipe.classList.add("recipe-img");
-            imgRecipe.src = meal.strMealThumb;
-            imgRecipe.alt = `Image of ${meal.strMealThumb}`;
-            imgRecipe.onerror = () => (imgRecipe.src = "https://placehold.co/100x100/A3A3A3/FFFFFF?text=No+Image"); // Fallback
-
-            const recipeName = document.createElement("a");
-            recipeName.classList.add("recipe-name");
-            recipeName.textContent = meal.strMeal;
-
-            li.appendChild(imgRecipe);
-            li.appendChild(recipeName);
-            recipeContainer.appendChild(li);
-         });
-      } else {
-         const errorMessage = document.createElement('p');
-         errorMessage.textContent = 'No recipes found for the search term.'
-         recipeContainer.appendChild(errorMessage);
-      }
-   } catch (error) {
+   } catch(error) {
       recipeContainer.textContent = `An error occurred: ${error.message}`;
       console.error(error);
    }
 }
-// Calling fetchRecipe to display in the recipe-container
-searchBtn.addEventListener("click", fetchRecipe);
 
-// Modal
+// calling the fetchAndDisplay function to display meals upon DOM content loaded
+document.addEventListener('DOMContentLoaded', function() {
+   fetchAndDisplay(mainAPI);
+});
+
+// async function when searching a meal
+async function searchRecipe(e) {
+   e.preventDefault();
+
+   const searchBox = document.getElementById('search-box').value.trim().toLowerCase();
+
+   if (searchBox === '') {
+      recipeContainer.textContent = 'Please enter a meal name to search.';
+      return;
+   }
+
+   // This line of code combines the api string and the searchbox value (e.g. https://www.themealdb.com/api/json/v1/1/search.php?s=${searchBox})
+   const recipeAPI = `${mainAPI}${searchBox}`;
+   fetchAndDisplay(recipeAPI);
+}
+
+// calling the searchRecipe async function when searching a meal
+searchBtn.addEventListener("click", searchRecipe);
+
+// Modals
 const modalOverlay = document.querySelector('.modal-container');
 const closeModal = document.querySelector('.close-modal-btn');
 
@@ -69,10 +95,4 @@ recipeContainer.addEventListener('click', function(e) {
 
 closeModal.addEventListener('click', function() {
    modalOverlay.style.display = 'none';
-})
-
-modalOverlay.addEventListener('click', function(e) {
-   if (e.target === modalOverlay) {
-      modalOverlay.style.display = 'none';
-   }
 })
