@@ -86,10 +86,34 @@ searchBtn.addEventListener("click", searchRecipe);
 const modalOverlay = document.querySelector('.modal-container');
 const closeModal = document.querySelector('.close-modal-btn');
 
+// display meal in modal
+function displayMealInModal(mealID) {
+   if (mealID) {
+      const recipeIDElement = mealID.querySelector('.recipe-id');
+      const recipeIMGElement = mealID.querySelector('.recipe-img');
+      const recipeNameElement = mealID.querySelector('.recipe-name');
+   
+      if (recipeIDElement && recipeIMGElement) {
+         const mealID =  recipeIDElement.textContent;
+         const idMeal = document.querySelector('.id-meal');
+         idMeal.textContent = `Meal ID: ${mealID}`;
+
+         const mealIMG = document.querySelector('.modal-img');
+         mealIMG.src = recipeIMGElement.src;
+
+         const mealName = document.querySelector('.modal-meal-name');
+         mealName.textContent = recipeNameElement.textContent;
+      }
+   }
+}
+
 recipeContainer.addEventListener('click', function(e) {
    if (e.target.tagName = 'A' && e.target.classList.contains('recipe-name')) {
       e.preventDefault();
       modalOverlay.style.display = 'flex';
+      
+      const listItem = e.target.closest('li');
+      displayMealInModal(listItem);
    }
 })
 
