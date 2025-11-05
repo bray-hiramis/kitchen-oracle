@@ -85,6 +85,50 @@ searchBtn.addEventListener("click", searchRecipe);
 // Modals
 const modalOverlay = document.querySelector('.modal-container');
 const closeModal = document.querySelector('.close-modal-btn');
+const idMeal = document.querySelector('.id-meal');
+const mealIMG = document.querySelector('.modal-img');
+const mealName = document.querySelector('.modal-meal-name');
+
+async function ingredients(listItem) {
+   try {
+      const mealElementID = listItem.querySelector('.recipe-id').textContent;
+      const mealsID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+      const mealURL = `${mealsID}${mealElementID}`;
+      const response = await fetch(mealURL);
+      if (!response.ok) {
+         throw new Error(`HTTP error! Status: ${response.status}. Could not fetch data.`);
+      }
+      const data = await response.json();
+      const mealData = data.meals[0];
+      const ingredientListContainer = document.querySelector('.modal-ingredient-container');
+
+      ingredientListContainer.innerHTML = '';
+
+      for (let i = 1; i <= 20; i++) {
+         const ingredient = mealData[`strIngredient${i}`];
+         const measure = mealData[`strMeasure${i}`];
+
+         if (ingredient && ingredient.trim() !== '') {
+            const li = document.createElement('li');
+            li.textContent = `${measure} ${ingredient}`;
+
+            ingredientListContainer.appendChild(li);
+         }
+      }
+
+      const instructions = mealData['strInstructions'];
+      const h2 = document.createElement('h2');
+      h2.textContent = 'How to cook?';
+      const p = document.createElement('p')
+      p.textContent = instructions;
+      ingredientListContainer.appendChild(h2);
+      ingredientListContainer.appendChild(p);
+
+   } catch (error) {
+      console.error(error);
+   }
+}
 
 // display meal in modal
 function displayMealInModal(mealID) {
@@ -94,29 +138,27 @@ function displayMealInModal(mealID) {
       const recipeNameElement = mealID.querySelector('.recipe-name');
    
       if (recipeIDElement && recipeIMGElement) {
-         const mealID =  recipeIDElement.textContent;
-         const idMeal = document.querySelector('.id-meal');
-         idMeal.textContent = `Meal ID: ${mealID}`;
-
-         const mealIMG = document.querySelector('.modal-img');
+         idMeal.textContent = `Meal ID: ${recipeIDElement.textContent}`;
          mealIMG.src = recipeIMGElement.src;
-
-         const mealName = document.querySelector('.modal-meal-name');
-         mealName.textContent = recipeNameElement.textContent;
+         mealName.innerHTML = `Meal name: <strong>${recipeNameElement.textContent}</strong`;
       }
    }
 }
 
 recipeContainer.addEventListener('click', function(e) {
-   if (e.target.tagName = 'A' && e.target.classList.contains('recipe-name')) {
+   if (e.target.tagName === 'A' && e.target.classList.contains('recipe-name')) {
       e.preventDefault();
       modalOverlay.style.display = 'flex';
       
       const listItem = e.target.closest('li');
       displayMealInModal(listItem);
+      ingredients(listItem);
    }
 })
 
 closeModal.addEventListener('click', function() {
    modalOverlay.style.display = 'none';
+   idMeal.textContent = '';
+   mealIMG.src = '';
+   mealName.innerHTML = ``;
 })

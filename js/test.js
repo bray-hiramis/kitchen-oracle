@@ -15,7 +15,7 @@
    .then(response => console.log(response))
    .catch(error => console.error(error)); */
 
-fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=53065')
    .then(response => {
       if (!response.ok) {
          throw new Error('Could not fetch resource.');
@@ -24,6 +24,27 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
    })
    .then(data => console.log(data.meals))
    .catch(error => console.error(error));
+
+const obj = [
+   {
+      obj1: {
+         child1: 'This is one',
+         child2: 'This is two',
+         child3: 'This is three'
+      }
+   },
+   {
+      obj2: {
+         child1: 'This is obj2 one',
+         child2: 'This is obj2 two',
+         child3: 'This is obj2 three'
+      }
+   }
+   
+]
+
+const childOfObj = obj[1];
+console.log(childOfObj);
 
 // Old Code:
 /* document.addEventListener('DOMContentLoaded', function() {

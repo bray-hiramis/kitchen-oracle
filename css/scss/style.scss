@@ -172,7 +172,7 @@ main {
          top: 0;
          left: 0;
          width: 100%;
-         height: 100%;
+         min-height: 100%;
          background-color: rgba(0, 0, 0, 0.7);
          display: none;
          justify-content: center;
@@ -181,13 +181,26 @@ main {
 
          .modal-content {
             position: relative;
-            height: auto;
-            max-width: 700px;
+            max-height: 500px;
+            max-width: 1200px;
             background-color: util.$font-color-secondary;
             color: util.$font-color;
             padding: util.$pd-md;
             border-radius: util.$br-md;
-            overflow: hidden;
+            overflow-y: scroll;
+
+            .recipe-modal-container {
+               display: flex;
+               align-items: center;
+               gap: 20px;
+
+               .modal-img {
+                  align-self: flex-start;
+                  max-width: 300px;
+                  border-radius: util.$br-md;
+                  box-shadow: 0 4px 4px #777;
+               }
+            }
 
             .close-modal-btn {
                cursor: pointer;
