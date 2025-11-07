@@ -143,3 +143,85 @@ async function fetchRecipe(e) {
       console.error(error);
    }
 } */
+
+/* async function ingredients(listItem) {
+   try {
+      const mealElementID = listItem.querySelector('.recipe-id').textContent;
+      const mealsID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+      const mealURL = `${mealsID}${mealElementID}`;
+      const response = await fetch(mealURL);
+      if (!response.ok) {
+         throw new Error(`HTTP error! Status: ${response.status}. Could not fetch data.`);
+      }
+      const data = await response.json();
+      const mealData = data.meals[0];
+      const ingredientListContainer = document.querySelector('.modal-ingredient-container');
+
+      ingredientListContainer.innerHTML = '';
+
+      for (let i = 1; i <= 20; i++) {
+         const ingredient = mealData[`strIngredient${i}`];
+         const measure = mealData[`strMeasure${i}`];
+
+         if (ingredient && ingredient.trim() !== '') {
+            const li = document.createElement('li');
+            li.textContent = `${measure} ${ingredient}`;
+
+            ingredientListContainer.appendChild(li);
+         }
+      }
+
+      const instructions = mealData['strInstructions'];
+      console.log(instructions);
+      const h2 = document.createElement('h2');
+      h2.textContent = 'How to cook?';
+      const p = document.createElement('p')
+      p.textContent = instructions;
+      ingredientListContainer.appendChild(h2);
+      ingredientListContainer.appendChild(p);
+
+   } catch (error) {
+      console.error(error);
+   }
+}
+
+// display meal in modal
+function displayMealInModal(mealID) {
+   if (mealID) {
+      const recipeIDElement = mealID.querySelector('.recipe-id');
+      const recipeIMGElement = mealID.querySelector('.recipe-img');
+      const recipeNameElement = mealID.querySelector('.recipe-name');
+   
+      if (recipeIDElement && recipeIMGElement) {
+         idMeal.textContent = `Meal ID: ${recipeIDElement.textContent}`;
+         mealIMG.src = recipeIMGElement.src;
+         mealName.innerHTML = `Meal name: <strong>${recipeNameElement.textContent}</strong`;
+      }
+   }
+}
+
+recipeContainer.addEventListener('click', function(e) {
+   if (e.target.tagName === 'A' && e.target.classList.contains('recipe-name')) {
+      sessionStorage.setItem('modal', 'modalPopUp');
+      e.preventDefault();
+      modalOverlay.style.display = 'flex';
+      
+      const listItem = e.target.closest('li');
+      displayMealInModal(listItem);
+      ingredients(listItem);
+   }
+})
+
+closeModal.addEventListener('click', function() {
+   modalOverlay.style.display = 'none';
+   idMeal.textContent = '';
+   mealIMG.src = '';
+   mealName.innerHTML = ``;
+   sessionStorage.setItem('modal', 'modalClosed');
+})
+
+const isModalPopUp = sessionStorage.getItem('modal');
+if (isModalPopUp === 'modalPopUp') {
+   modalOverlay.style.display = 'flex';
+} */

@@ -17,23 +17,23 @@
 <body>
 
    <div class="container">
+      <div id="main-nav">
+         <a href="#home-content-container" id="logo">Kitchen Oracle</a>
+         <nav>
+            <ul>
+               <a href="#search-section" class="nav-list">
+                  <li>Search</li>
+               </a>
+               <a href="#" class="nav-list">
+                  <li>Recipes</li>
+               </a>
+               <a href="#" class="nav-list">
+                  <li>Favorites</li>
+               </a>
+            </ul>
+         </nav>
+      </div>
       <header>
-         <div id="main-nav">
-            <a href="#" id="logo">Kitchen Oracle</a>
-            <nav>
-               <ul>
-                  <a href="#" class="nav-list">
-                     <li>Search</li>
-                  </a>
-                  <a href="#" class="nav-list">
-                     <li>Recipes</li>
-                  </a>
-                  <a href="#" class="nav-list">
-                     <li>Favorites</li>
-                  </a>
-               </ul>
-            </nav>
-         </div>
          <div class="hero">
             <h1>Kitchen <span class="highlight">Oracle</span></h1>
             <p>Recipe Finder</p>
@@ -41,19 +41,35 @@
       </header>
 
       <main>
-         <section class="search-section">
+         <section id="search-section">
             <form action="#">
                <input type="text" name="search" id="search-box" placeholder="Search for recipe...">
                <button type="submit" id="search-btn">Search</button>
             </form>
          </section>
-         <div class="recipe-content">
-            <section class="recipe-list">
+         <section class="recipe-content">
+            <div id="home-content-container">
+               <img class="home-img" src="https://images.pexels.com/photos/1109197/pexels-photo-1109197.jpeg" alt="an image of recipe in a bowl.">
+               <div class="home-texts">
+                  <h2>What is Kitchen Oracle</h2>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nobis neque, voluptatibus ea corporis ex maiores explicabo adipisci repudiandae. Sunt!</p>
+                  <ul class="home-list">
+                     <li>Search your meal</li>
+                     <li>Find the recipes and steps</li>
+                     <li>Save your meal as favorite</li>
+                  </ul>
+                  <div class="meal-db">
+                     <h3>This is powered by: </p>
+                     <a href="https://www.themealdb.com/api.php" target="_blank"><img class="home-mealdb" src="https://www.themealdb.com/images/logo.svg" alt=""></a>
+                  </div>
+               </div>
+            </div>
+            <div class="recipe-list">
                <!-- RECIPE API WILL GO HERE -->
                <ul class="recipe-container">
                   <!-- Recipe list will go here -->
                </ul>
-            </section>
+            </div>
             <div class="modal-container">
                <!-- This section will fetch the data on the recipe list -->
                <div class="modal-content">
@@ -68,15 +84,20 @@
                         </ul>
                      </div>
                   </div>
-                  <button class="close-modal-btn">
-                     <i class="fa-solid fa-circle-xmark"></i>
-                  </button>
+                  <div class="btn-container">
+                     <button class="fav-btn btn">
+                        <i class="fa-regular fa-heart"></i>
+                     </button>
+                     <button class="close-modal-btn btn">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                     </button>
+                  </div>
                </div>
             </div>
             <aside class="ads">
                <h2>Your Ads here.</h2>
             </aside>
-         </div>
+         </section>
       </main>
 
       <footer>

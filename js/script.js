@@ -1,9 +1,12 @@
 const recipeContainer = document.querySelector(".recipe-container");
 const searchBtn = document.getElementById("search-btn");
+const homePage = document.getElementById('home-content-container');
+const recipeListHomePage = document.querySelector('.recipe-list');
+const logo = document.getElementById('logo');
 const mainAPI = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
-// function to display the API content to the DOM
-function displayMeals(mealsArray) {
+// Displaying Meal
+function displayMeals(mealsArray) { // function to display the API content to the DOM
 
    recipeContainer.innerHTML = '';
 
@@ -31,17 +34,18 @@ function displayMeals(mealsArray) {
          li.appendChild(recipeID);
          li.appendChild(recipeName);
          recipeContainer.appendChild(li);
+
+         homePage.style.display = 'none';
+         recipeListHomePage.style.display = 'block';
       });
    } else {
       const errorMessage = document.createElement('p');
       errorMessage.textContent = 'No recipes found for the search term.'
       recipeContainer.appendChild(errorMessage);
    }
-
 }
 
-// async function to display the meals
-async function fetchAndDisplay(api) {
+async function fetchAndDisplay(api) { // async function to display the meals
    try {
       const response = await fetch(api);
 
@@ -58,13 +62,16 @@ async function fetchAndDisplay(api) {
    }
 }
 
-// calling the fetchAndDisplay function to display meals upon DOM content loaded
-document.addEventListener('DOMContentLoaded', function() {
-   fetchAndDisplay(mainAPI);
-});
+logo.addEventListener('click', function() {
+   homePage.style.display = 'flex';
+   recipeListHomePage.style.display = 'none';
+   sessionStorage.setItem('meal', 'mealResultClosed');
+   sessionStorage.removeItem('currentSearchedMeal');
+   const searchBox = document.getElementById('search-box').value = '';
 
-// async function when searching a meal
-async function searchRecipe(e) {
+})
+
+async function searchRecipe(e) { // async function when searching a meal
    e.preventDefault();
 
    const searchBox = document.getElementById('search-box').value.trim().toLowerCase();
@@ -74,13 +81,20 @@ async function searchRecipe(e) {
       return;
    }
 
-   // This line of code combines the api string and the searchbox value (e.g. https://www.themealdb.com/api/json/v1/1/search.php?s=${searchBox})
-   const recipeAPI = `${mainAPI}${searchBox}`;
+   const recipeAPI = `${mainAPI}${searchBox}`; // This line of code combines the api string and the searchbox value (e.g. https://www.themealdb.com/api/json/v1/1/search.php?s=${searchBox})
    fetchAndDisplay(recipeAPI);
+
+   sessionStorage.setItem('meal', 'mealResult');
+   sessionStorage.setItem('currentSearchedMeal', recipeAPI);
 }
 
-// calling the searchRecipe async function when searching a meal
-searchBtn.addEventListener("click", searchRecipe);
+searchBtn.addEventListener("click", searchRecipe); // calling the searchRecipe async function when searching a meal
+
+const hasMealSearched = sessionStorage.getItem('meal');
+const savedSearchedMeal = sessionStorage.getItem('currentSearchedMeal')
+if (hasMealSearched === 'mealResult' && savedSearchedMeal) {
+   fetchAndDisplay(savedSearchedMeal);
+}
 
 // Modals
 const modalOverlay = document.querySelector('.modal-container');
@@ -88,22 +102,30 @@ const closeModal = document.querySelector('.close-modal-btn');
 const idMeal = document.querySelector('.id-meal');
 const mealIMG = document.querySelector('.modal-img');
 const mealName = document.querySelector('.modal-meal-name');
+const ingredientListContainer = document.querySelector('.modal-ingredient-container');
 
-async function ingredients(listItem) {
+
+async function fetchAndDisplayModal(mealID) { // This display the content to the modal
    try {
-      const mealElementID = listItem.querySelector('.recipe-id').textContent;
+      
       const mealsID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+      const mealUrl = `${mealsID}${mealID}`;
+      const response = await fetch(mealUrl);
 
-      const mealURL = `${mealsID}${mealElementID}`;
-      const response = await fetch(mealURL);
       if (!response.ok) {
-         throw new Error(`HTTP error! Status: ${response.status}. Could not fetch data.`);
+         throw new Error(`HTTP error! Status: ${response.status}. Could not fetch the data`);
       }
-      const data = await response.json();
-      const mealData = data.meals[0];
-      const ingredientListContainer = document.querySelector('.modal-ingredient-container');
 
       ingredientListContainer.innerHTML = '';
+
+      const data = await response.json();
+      const mealData = data.meals[0];
+
+      idMeal.textContent = `Meal ID: ${mealData.idMeal}`;
+      mealName.innerHTML = `Meal Name: <strong>${mealData.strMeal}</strong>`
+      mealIMG.src = mealData.strMealThumb;
+
+      
 
       for (let i = 1; i <= 20; i++) {
          const ingredient = mealData[`strIngredient${i}`];
@@ -117,48 +139,45 @@ async function ingredients(listItem) {
          }
       }
 
-      const instructions = mealData['strInstructions'];
       const h2 = document.createElement('h2');
-      h2.textContent = 'How to cook?';
-      const p = document.createElement('p')
-      p.textContent = instructions;
+      h2.textContent = "How to cook?";
+      const p = document.createElement('p');
+      p.textContent = mealData.strInstructions;
       ingredientListContainer.appendChild(h2);
       ingredientListContainer.appendChild(p);
 
-   } catch (error) {
-      console.error(error);
-   }
-}
+      modalOverlay.style.display = 'flex';
 
-// display meal in modal
-function displayMealInModal(mealID) {
-   if (mealID) {
-      const recipeIDElement = mealID.querySelector('.recipe-id');
-      const recipeIMGElement = mealID.querySelector('.recipe-img');
-      const recipeNameElement = mealID.querySelector('.recipe-name');
-   
-      if (recipeIDElement && recipeIMGElement) {
-         idMeal.textContent = `Meal ID: ${recipeIDElement.textContent}`;
-         mealIMG.src = recipeIMGElement.src;
-         mealName.innerHTML = `Meal name: <strong>${recipeNameElement.textContent}</strong`;
-      }
+
+   } catch (error) {
+      console.error(error)
    }
 }
 
 recipeContainer.addEventListener('click', function(e) {
    if (e.target.tagName === 'A' && e.target.classList.contains('recipe-name')) {
       e.preventDefault();
-      modalOverlay.style.display = 'flex';
-      
       const listItem = e.target.closest('li');
-      displayMealInModal(listItem);
-      ingredients(listItem);
+      const mealID = listItem.querySelector('.recipe-id').textContent;
+
+      sessionStorage.setItem('modal', 'modalPopUp');
+      sessionStorage.setItem('currentMealID', mealID);
+
+      fetchAndDisplayModal(mealID);
    }
 })
 
 closeModal.addEventListener('click', function() {
    modalOverlay.style.display = 'none';
-   idMeal.textContent = '';
-   mealIMG.src = '';
-   mealName.innerHTML = ``;
+
+
+   sessionStorage.setItem('modal', 'modalClosed');
+   sessionStorage.removeItem('currentMealID');
 })
+
+// this stores the pop up modal to the sessionStorage for it to stay open when page is refreshed
+const isModalPopUp = sessionStorage.getItem('modal');
+const savedMealID = sessionStorage.getItem('currentMealID');
+if (isModalPopUp === 'modalPopUp' && savedMealID) {
+   fetchAndDisplayModal(savedMealID);
+}

@@ -9,41 +9,45 @@
 html {
    font-family: util.$font-stack;
    color: util.$font-color;
+   scroll-behavior: smooth;
+}
+
+// navigation
+#main-nav {
+   position: sticky;
+   top: 0;
+   z-index: 10;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   background-color: util.$primary-color;
+   padding: util.$pd-xs;
+   border-radius: 0 0 util.$br-md util.$br-md;
+   
+   #logo,
+   .nav-list {
+      color: util.$font-color-secondary;
+   }
+   
+   nav ul {
+      display: flex;
+      flex-wrap: wrap;
+   }
+   
+   .nav-list {
+      padding: util.$pd-sm;
+      transition: .3s;
+      
+      &:hover {
+         background: util.$accent-color;
+         color: util.$font-color;
+      }
+   }
 }
 
 header {
-   
-   // navigation
-   #main-nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      background-color: util.$primary-color;
-      padding: util.$pd-xs;
-      border-radius: util.$br-md;
-      
-      #logo,
-      .nav-list {
-         color: util.$font-color-secondary;
-      }
-      
-      nav ul {
-         display: flex;
-         flex-wrap: wrap;
-      }
-      
-      .nav-list {
-         padding: util.$pd-sm;
-         transition: .3s;
-         
-         &:hover {
-            background: util.$accent-color;
-            color: util.$font-color;
-         }
-      }
-   }
-   
    // hero section
    .hero {
       background: url("https://images.pexels.com/photos/4199098/pexels-photo-4199098.jpeg") no-repeat center / cover;
@@ -85,9 +89,8 @@ header {
 }
 
 main {
-
    // Search box section
-   .search-section form {
+   #search-section form {
       height: 10vh;
       display: flex;
       justify-content: center;
@@ -120,12 +123,52 @@ main {
 
    // Recipe list section
    .recipe-content {
-      min-height: 80vh;
+      min-height: 60vh;
       display: grid;
       grid-template-columns: 4fr 1fr;
       gap: 10px;
 
+      #home-content-container {
+         display: flex;
+         margin-top: util.$mg-lg;
+         padding: util.$pd-md;
+
+         .home-img {
+            display: block;
+            width: min(500px, 60%);
+            height: min(300px, 40%);
+            box-shadow: 0 0 4px 4px #ccc;
+         }
+
+         .home-texts {
+            padding: util.$pd-md;
+            .home-list li {
+               margin-left: 30px;
+               list-style: circle;
+            }
+         }
+
+         .meal-db {
+            margin-top: util.$mg-lg;
+
+            h3 {
+               text-align: center;
+            }
+
+            .home-mealdb {
+               width: 100%;
+               height: 150px;
+               object-fit: fill;
+               display: block;
+               background-color: #333;
+               border-radius: util.$br-lg;
+            }
+         }
+
+      }
+
       .recipe-list {
+         display: none;
 
          .recipe-container {
             display: grid;
@@ -202,20 +245,21 @@ main {
                }
             }
 
-            .close-modal-btn {
-               cursor: pointer;
-               border: none;
+            .btn-container {
+               display: flex;
                position: absolute;
                top: 0;
                right: 0;
                margin: util.$mg-xs;
-               background-color: transparent;
+               gap: 20px;
+               .close-modal-btn {
 
-               & i {
-                  color: red;
-                  font-size: 1.2rem;
+                  i {
+                     color: red;
+                  }
                }
             }
+
          }
       }
 

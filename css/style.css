@@ -9,6 +9,17 @@
   text-decoration: underline;
 }
 
+.btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  transition: 0.3s;
+}
+.btn:hover {
+  transform: scale(1.3);
+}
+
 li {
   list-style: none;
 }
@@ -33,33 +44,39 @@ img {
 html {
   font-family: "Poppins", sans-serif;
   color: #222;
+  scroll-behavior: smooth;
 }
 
-header #main-nav {
+#main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   background-color: #BE2D32;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
 }
-header #main-nav #logo,
-header #main-nav .nav-list {
+#main-nav #logo,
+#main-nav .nav-list {
   color: #f2f2f2;
 }
-header #main-nav nav ul {
+#main-nav nav ul {
   display: flex;
   flex-wrap: wrap;
 }
-header #main-nav .nav-list {
+#main-nav .nav-list {
   padding: 20px;
   transition: 0.3s;
 }
-header #main-nav .nav-list:hover {
+#main-nav .nav-list:hover {
   background: #E7AC7E;
   color: #222;
 }
+
 header .hero {
   background: url("https://images.pexels.com/photos/4199098/pexels-photo-4199098.jpeg") no-repeat center/cover;
   height: 60vh;
@@ -94,7 +111,7 @@ header .hero p {
   font-size: 2.8rem;
 }
 
-main .search-section form {
+main #search-section form {
   height: 10vh;
   display: flex;
   justify-content: center;
@@ -102,18 +119,18 @@ main .search-section form {
   gap: 20px;
   padding: 30px;
 }
-main .search-section form #search-box {
+main #search-section form #search-box {
   font-size: 1.8rem;
   padding: 10px;
   width: 600px;
   border: 2px solid #E7AC7E;
   border-radius: 20px;
 }
-main .search-section form #search-box:focus {
+main #search-section form #search-box:focus {
   border: none;
   outline: 2px solid #BE2D32;
 }
-main .search-section form #search-btn {
+main #search-section form #search-btn {
   cursor: pointer;
   font-size: 1.8rem;
   border-radius: 10px;
@@ -122,10 +139,45 @@ main .search-section form #search-btn {
   background: #E7AC7E;
 }
 main .recipe-content {
-  min-height: 80vh;
+  min-height: 60vh;
   display: grid;
   grid-template-columns: 4fr 1fr;
   gap: 10px;
+}
+main .recipe-content #home-content-container {
+  display: flex;
+  margin-top: 40px;
+  padding: 30px;
+}
+main .recipe-content #home-content-container .home-img {
+  display: block;
+  width: min(500px, 60%);
+  height: min(300px, 40%);
+  box-shadow: 0 0 4px 4px #ccc;
+}
+main .recipe-content #home-content-container .home-texts {
+  padding: 30px;
+}
+main .recipe-content #home-content-container .home-texts .home-list li {
+  margin-left: 30px;
+  list-style: circle;
+}
+main .recipe-content #home-content-container .meal-db {
+  margin-top: 40px;
+}
+main .recipe-content #home-content-container .meal-db h3 {
+  text-align: center;
+}
+main .recipe-content #home-content-container .meal-db .home-mealdb {
+  width: 100%;
+  height: 150px;
+  object-fit: fill;
+  display: block;
+  background-color: #333;
+  border-radius: 20px;
+}
+main .recipe-content .recipe-list {
+  display: none;
 }
 main .recipe-content .recipe-list .recipe-container {
   display: grid;
@@ -193,18 +245,16 @@ main .recipe-content .modal-container .modal-content .recipe-modal-container .mo
   border-radius: 10px;
   box-shadow: 0 4px 4px #777;
 }
-main .recipe-content .modal-container .modal-content .close-modal-btn {
-  cursor: pointer;
-  border: none;
+main .recipe-content .modal-container .modal-content .btn-container {
+  display: flex;
   position: absolute;
   top: 0;
   right: 0;
   margin: 10px;
-  background-color: transparent;
+  gap: 20px;
 }
-main .recipe-content .modal-container .modal-content .close-modal-btn i {
+main .recipe-content .modal-container .modal-content .btn-container .close-modal-btn i {
   color: red;
-  font-size: 1.2rem;
 }
 main .recipe-content .ads {
   display: flex;
