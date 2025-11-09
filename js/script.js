@@ -169,7 +169,9 @@ recipeContainer.addEventListener('click', function(e) {
 
 closeModal.addEventListener('click', function() {
    modalOverlay.style.display = 'none';
-
+   idMeal.textContent = '';
+   mealName.innerHTML = '';
+   mealIMG.src = '';
 
    sessionStorage.setItem('modal', 'modalClosed');
    sessionStorage.removeItem('currentMealID');

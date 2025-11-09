@@ -18,7 +18,6 @@ html {
    top: 0;
    z-index: 10;
    display: flex;
-   flex-wrap: wrap;
    justify-content: space-between;
    align-items: center;
    width: 100%;
@@ -30,10 +29,21 @@ html {
    .nav-list {
       color: util.$font-color-secondary;
    }
+
+   #logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 200px;
+
+      .logo-img {
+         display: inline-block;
+         width: min(32px, 100%);
+      }
+   }
    
    nav ul {
       display: flex;
-      flex-wrap: wrap;
    }
    
    .nav-list {
@@ -268,6 +278,32 @@ main {
          justify-content: center;
          align-items: center;
          background-color: #ccc;
+      }
+   }
+}
+
+// Recipe Page
+.meal-container {
+   .meal-list {
+      .meal-card {
+         display: flex;
+         gap: 20px;
+         padding: util.$pd-sm;
+         margin-top: util.$mg-sm;
+         border-radius: util.$br-md;
+
+         &:nth-child(2n+1) { // odd
+            border: 1px solid #e4e2e2;
+         }
+
+         &:nth-child(2n) { // even
+            background-color: #e4e2e2;
+         }
+
+         img {
+            width: min(300px, 40%);
+            box-shadow: 0 4px 5px 2px #777;
+         }
       }
    }
 }

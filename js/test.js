@@ -15,7 +15,7 @@
    .then(response => console.log(response))
    .catch(error => console.error(error)); */
 
-fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=53065')
+fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
    .then(response => {
       if (!response.ok) {
          throw new Error('Could not fetch resource.');

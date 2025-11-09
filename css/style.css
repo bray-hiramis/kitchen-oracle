@@ -52,7 +52,6 @@ html {
   top: 0;
   z-index: 10;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -64,9 +63,18 @@ html {
 #main-nav .nav-list {
   color: #f2f2f2;
 }
+#main-nav #logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 200px;
+}
+#main-nav #logo .logo-img {
+  display: inline-block;
+  width: min(32px, 100%);
+}
 #main-nav nav ul {
   display: flex;
-  flex-wrap: wrap;
 }
 #main-nav .nav-list {
   padding: 20px;
@@ -261,6 +269,24 @@ main .recipe-content .ads {
   justify-content: center;
   align-items: center;
   background-color: #ccc;
+}
+
+.meal-container .meal-list .meal-card {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+.meal-container .meal-list .meal-card:nth-child(2n+1) {
+  border: 1px solid #e4e2e2;
+}
+.meal-container .meal-list .meal-card:nth-child(2n) {
+  background-color: #e4e2e2;
+}
+.meal-container .meal-list .meal-card img {
+  width: min(300px, 40%);
+  box-shadow: 0 4px 5px 2px #777;
 }
 
 footer {
