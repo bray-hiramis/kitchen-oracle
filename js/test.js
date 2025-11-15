@@ -225,3 +225,101 @@ const isModalPopUp = sessionStorage.getItem('modal');
 if (isModalPopUp === 'modalPopUp') {
    modalOverlay.style.display = 'flex';
 } */
+
+/* // favorite btn
+
+
+let favoriteMeal = [];
+
+const storedFavoriteMeal = localStorage.getItem('favoriteMeal');
+if (storedFavoriteMeal !== null) {
+   favoriteMeal = JSON.parse(storedFavoriteMeal);
+} else {
+   favoriteMeal = [];
+}
+
+function updateLocalStorage() {
+   const jsonString = JSON.stringify(favoriteMeal);
+   localStorage.setItem('favoriteMeal', jsonString);
+}
+
+async function favToggle(btnElement) {
+   try {
+
+      const mealsID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+      const mealUrl = `${mealsID}${btnElement}`;
+      const response = await fetch(mealUrl);
+
+      if (!response.ok) {
+         throw new Error(`HTTP error! Status: ${response.status}. Could not fetch the data`);
+      }
+
+      const data = await response.json();
+      const mealData = data.meals[0];
+
+      if (favBtn.classList.contains('fa-regular')) {
+         favBtn.classList.add('fav', 'fa-solid');
+         favBtn.classList.remove('fa-regular');
+      } 
+
+
+      let storedFavoriteID = localStorage.getItem('favoriteMealID');
+      if (!storedFavoriteID) {
+         localStorage.setItem('favoriteMealID', JSON.stringify({meal:[]}));
+         storedFavoriteID = JSON.parse(localStorage.getItem('favoriteMealID'));
+         btnElement.classList.add('fav');
+         btnElement.classList.add('fa-solid');
+         btnElement.classList.remove('fa-regular');
+      } else {
+         storedFavoriteID = JSON.parse(storedFavoriteID);
+      }
+
+      favoriteMeal.push(mealData.idMeal);
+      localStorage.setItem('favoriteMeal', JSON.stringify(favoriteMeal));
+
+   } catch (error) {
+      console.error(error);
+   }
+
+   if (btnElement.classList.contains('fav')) {
+      btnElement.classList.remove('fav');
+      btnElement.classList.remove('fa-solid');
+      btnElement.classList.add('fa-regular');
+      localStorage.removeItem('favorite');
+      localStorage.removeItem('favoriteMealID');
+   } else if (!btnElement.classList.contains('fav')) {
+      btnElement.classList.add('fav');
+      btnElement.classList.add('fa-solid');
+      btnElement.classList.remove('fa-regular');
+      localStorage.setItem('favorite', 'favoriteMeal')
+      localStorage.setItem('favoriteMealID', idMeal.textContent);
+   }
+}
+favBtn.addEventListener('click', function(e) {
+   if (e.target.tagName === 'SPAN' && e.target.classList.contains('id-meal')) {
+      e.preventDefault();
+      const span = e.target.closest('span')
+      const mealID = span.querySelector('.id-meal').textContent;
+      favToggle(mealID);
+   }
+}); */
+
+      // Stores the favorite meal to local storage
+      /* const storedFavoriteID = localStorage.getItem('favoriteMealID');
+      if (!storedFavoriteID) {
+         localStorage.setItem('favoriteMealID', JSON.stringify({meal:[]}));
+         storedFavoriteID = JSON.parse(localStorage.getItem('favoriteMealID'));
+      } else {
+         storedFavoriteID = JSON.parse(storedFavoriteID);
+      }
+
+      storedFavoriteID.meal.push(mealData.idMeal);
+      localStorage.setItem('favoriteMealID', JSON.stringify(storedFavoriteID)); */
+
+      /* if (storedFavoriteID === mealData.idMeal) {
+         favBtn.classList.add('fav', 'fa-solid');
+         favBtn.classList.remove('fa-regular');
+      } else {
+         favBtn.classList.remove('fav', 'fa-solid');
+         favBtn.classList.add('fa-regular');
+      } */

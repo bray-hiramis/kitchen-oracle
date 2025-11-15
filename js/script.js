@@ -98,12 +98,8 @@ if (hasMealSearched === 'mealResult' && savedSearchedMeal) {
 
 // Modals
 const modalOverlay = document.querySelector('.modal-container');
+const modalContent = document.querySelector('.modal-content');
 const closeModal = document.querySelector('.close-modal-btn');
-const idMeal = document.querySelector('.id-meal');
-const mealIMG = document.querySelector('.modal-img');
-const mealName = document.querySelector('.modal-meal-name');
-const ingredientListContainer = document.querySelector('.modal-ingredient-container');
-
 
 async function fetchAndDisplayModal(mealID) { // This display the content to the modal
    try {
@@ -111,43 +107,95 @@ async function fetchAndDisplayModal(mealID) { // This display the content to the
       const mealsID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
       const mealUrl = `${mealsID}${mealID}`;
       const response = await fetch(mealUrl);
+      console.log(mealUrl);
 
       if (!response.ok) {
          throw new Error(`HTTP error! Status: ${response.status}. Could not fetch the data`);
       }
 
-      ingredientListContainer.innerHTML = '';
-
       const data = await response.json();
       const mealData = data.meals[0];
 
-      idMeal.textContent = `Meal ID: ${mealData.idMeal}`;
-      mealName.innerHTML = `Meal Name: <strong>${mealData.strMeal}</strong>`
-      mealIMG.src = mealData.strMealThumb;
+      /* What's inside the modalContent
+      div class modal-left modal-img modal-favorite-btn
+         img
+         button
+      end of div
 
+      div class modal-right modal-recipes
+         p for meal-id
+         p for meal-name
+         h2 for "Ingredients"
+         ul for ingredients list
+            li for individual measure and ingredient
+         end of ul
+         h2 for "How to cook?"
+         p for steps to cook
+      end of div
+
+      append all to modalContent
+      */
       
 
+      // Left Div
+      const divLeft = document.createElement('div');
+      divLeft.classList.add('modal-left');
+      const modalImg = document.createElement('img');
+      modalImg.classList.add('modal-img')
+      const modalAddToFavoriteBtn = document.createElement('button');
+      modalAddToFavoriteBtn.classList.add('add-to-favorites-btn')
+
+      modalImg.src = mealData.strMealThumb;
+      modalImg.alt = mealData.strMeal;
+      modalAddToFavoriteBtn.type = 'submit';
+      modalAddToFavoriteBtn.textContent = 'Add to Favorites';
+
+      // Right Div
+      const divRight = document.createElement('div');
+      divRight.classList.add('modal-right');
+      const modalMealID = document.createElement('p');
+      modalMealID.classList.add('meal-id');
+      modalMealID.innerHTML = `Meal ID: <strong>${mealData.idMeal}</strong>`;
+      const mealName = document.createElement('p');
+      mealName.classList.add('meal-name');
+      mealName.innerHTML = `Meal Name: <strong>${mealData.strMeal}</strong>`;
+      const headingIngredients = document.createElement('h2');
+      headingIngredients.textContent = 'Ingredients:';
+
+      const IngredientsContainer = document.createElement('ul');
+      IngredientsContainer.classList.add('ingredients-container');
       for (let i = 1; i <= 20; i++) {
-         const ingredient = mealData[`strIngredient${i}`];
          const measure = mealData[`strMeasure${i}`];
-
-         if (ingredient && ingredient.trim() !== '') {
-            const li = document.createElement('li');
-            li.textContent = `${measure} ${ingredient}`;
-
-            ingredientListContainer.appendChild(li);
+         const ingredient = mealData[`strIngredient${i}`];
+         if (ingredient && ingredient.trim() !== "") {
+               const measureAndIngredientsContainer = document.createElement("li");
+               measureAndIngredientsContainer.classList.add('measure-and-ingredient')
+               measureAndIngredientsContainer.textContent = `${measure} ${ingredient}`;
+               IngredientsContainer.appendChild(measureAndIngredientsContainer);
          }
       }
 
-      const h2 = document.createElement('h2');
-      h2.textContent = "How to cook?";
-      const p = document.createElement('p');
-      p.textContent = mealData.strInstructions;
-      ingredientListContainer.appendChild(h2);
-      ingredientListContainer.appendChild(p);
+      const headingHowToCook = document.createElement('h2');
+      headingHowToCook.textContent = 'How to cook?';
+      const steps = document.createElement('p');
+      steps.textContent = mealData.strInstructions;
+      
+      // append
+      divLeft.appendChild(modalImg);
+      divLeft.appendChild(modalAddToFavoriteBtn);
 
+      divRight.appendChild(modalMealID);
+      divRight.appendChild(mealName);
+      divRight.appendChild(headingIngredients);
+      divRight.appendChild(IngredientsContainer);
+      divRight.appendChild(headingHowToCook);
+      divRight.appendChild(steps);
+
+      modalContent.appendChild(divLeft);
+      modalContent.appendChild(divRight);
+
+      // displaying the modal
       modalOverlay.style.display = 'flex';
-
 
    } catch (error) {
       console.error(error)
@@ -169,11 +217,8 @@ recipeContainer.addEventListener('click', function(e) {
 
 closeModal.addEventListener('click', function() {
    modalOverlay.style.display = 'none';
-   idMeal.textContent = '';
-   mealName.innerHTML = '';
-   mealIMG.src = '';
 
-   sessionStorage.setItem('modal', 'modalClosed');
+   sessionStorage.removeItem('modal');
    sessionStorage.removeItem('currentMealID');
 })
 

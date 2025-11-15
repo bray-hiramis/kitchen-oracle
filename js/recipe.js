@@ -9,7 +9,6 @@ function displayMealList(meals) {
          // parent li
          const li = document.createElement('li');
          li.classList.add('meal-card');
-         // li.style.overflowY = 'scroll';
 
          // child items of li
          const img = document.createElement('img');

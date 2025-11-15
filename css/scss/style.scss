@@ -220,6 +220,7 @@ main {
          }
       }
 
+      // modal
       .modal-container {
          position: fixed;
          top: 0;
@@ -236,40 +237,24 @@ main {
             position: relative;
             max-height: 500px;
             max-width: 1200px;
-            background-color: util.$font-color-secondary;
+            background-color: #f3f3f3;
             color: util.$font-color;
             padding: util.$pd-md;
             border-radius: util.$br-md;
             overflow-y: scroll;
 
-            .recipe-modal-container {
-               display: flex;
-               align-items: center;
-               gap: 20px;
-
-               .modal-img {
-                  align-self: flex-start;
-                  max-width: 300px;
-                  border-radius: util.$br-md;
-                  box-shadow: 0 4px 4px #777;
-               }
-            }
-
             .btn-container {
-               display: flex;
                position: absolute;
                top: 0;
                right: 0;
                margin: util.$mg-xs;
-               gap: 20px;
-               .close-modal-btn {
 
+               .close-modal-btn {
                   i {
                      color: red;
                   }
                }
             }
-
          }
       }
 
