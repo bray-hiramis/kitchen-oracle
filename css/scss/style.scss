@@ -242,6 +242,27 @@ main {
             padding: util.$pd-md;
             border-radius: util.$br-md;
             overflow-y: scroll;
+            display: flex;
+            gap: 20px;
+
+            .modal-left {
+               min-width: 30%;
+               max-height: 300px;
+
+               .modal-img {
+                  min-width: 100%;
+                  border-radius: util.$br-md;
+                  margin-bottom: util.$mg-xs;
+               }
+
+               .add-to-favorites-btn {
+                  display: block;
+                  min-width: 100%;
+                  padding: 15px 0;
+                  font-size: util.$fs-sm;
+                  border-radius: util.$br-md;
+               }
+            }
 
             .btn-container {
                position: absolute;

@@ -170,7 +170,7 @@ async function fetchAndDisplayModal(mealID) { // This display the content to the
          if (ingredient && ingredient.trim() !== "") {
                const measureAndIngredientsContainer = document.createElement("li");
                measureAndIngredientsContainer.classList.add('measure-and-ingredient')
-               measureAndIngredientsContainer.textContent = `${measure} ${ingredient}`;
+               measureAndIngredientsContainer.textContent = `${i}.) ${measure} ${ingredient}`;
                IngredientsContainer.appendChild(measureAndIngredientsContainer);
          }
       }
