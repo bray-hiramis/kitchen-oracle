@@ -58,8 +58,10 @@ While the app is still under development, one of it's core function which is to 
 
 
 ## Collaboration
-
 Feel free to fork/clone it :)
+
+## Deploy
+[Kitchen Oracle](https://kitchen-oracle.netlify.app/) - https://kitchen-oracle.netlify.app/
 
 ## Author
 - Brian Hiramis
