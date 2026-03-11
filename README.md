@@ -49,6 +49,8 @@ ___
 - SASS (CSS pre-compiler)
 - JavaScript
 
+___
+
 ## Future Enhancements
 
 While the app is still under development, one of it's core function which is to find a meal is already working.
@@ -56,12 +58,17 @@ While the app is still under development, one of it's core function which is to 
 ### Feature(s) to be added soon:
 - Save your Favorite Meal.
 
+___
 
 ## Collaboration
 Feel free to fork/clone it :)
 
+___
+
 ## Deploy
 [Kitchen Oracle](https://kitchen-oracle.netlify.app/) - https://kitchen-oracle.netlify.app/
+
+___
 
 ## Author
 - Brian Hiramis
